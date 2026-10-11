@@ -15,23 +15,26 @@ A minimal Linux distribution built from scratch: **Linux 6.13.3 + busybox + GRUB
 - GRUB menu and kernel framebuffer both at **1280×720 (16:9)**
 - Dual console output (serial + VGA): commands like `ls` and `mneofetch` render on both
 - Single packed rootfs in initramfs, fast boot (~3 s to shell)
+- Local **`ai`** chatbot: pure-Python MiniMind2 (llama) inference on CPU — just type `ai`
 
 ## Run
 
 ```bash
 # graphical (GRUB menu + VGA console)
-qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.6.iso
+qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.7.iso
 
 # serial console (interact right in your terminal)
-qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.6.iso -nographic
+qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.7.iso -nographic
 ```
+
+> The bundled `ai` model needs more headroom — start QEMU with `-m 1024` before running `ai`.
 
 ## Build
 
 ### One-shot build
 
 ```bash
-./build.sh          # repack initramfs and produce ../mnOSv1.6.iso
+./build.sh          # repack initramfs and produce ../mnOSv1.7.iso
 ```
 
 Requires `grub-mkrescue`, `cpio`, `gzip`, and the kernel's `gen_init_cpio`
@@ -123,7 +126,7 @@ menuentry "mnOS" {
 }
 EOF
 
-grub-mkrescue -o mnOSv1.6.iso staging/
+grub-mkrescue -o mnOSv1.7.iso staging/
 ```
 
 ## Layout
@@ -139,6 +142,7 @@ mnOS/
 │   ├── profile     # colored PS1, shortcut aliases
 │   └── ...
 ├── boot/           # bzImage + initramfs.cpio.gz
+├── opt/ai/         # MiniMind2 inference engine + model + numpy/regex
 ├── assets/         # README screenshot
 ├── build.sh        # one-shot build script
 ├── lib/, lib64/    # glibc runtime and dynamic loader
@@ -165,6 +169,7 @@ mnOS's own code (the `init` process, `build.sh`, the startup scripts under
 The mnOS image is distributed as an **aggregate**: it bundles third-party
 software under their own licenses, notably Linux and BusyBox (GPL-2.0-only),
 glibc (LGPL-2.1-or-later), GRUB, nano and GNU make (GPL-3.0-or-later), Vim
-(Vim License), Python (PSF License), tcc (LGPL-2.1) and Git (GPL-2.0). See
+(Vim License), Python (PSF License), tcc (LGPL-2.1), Git (GPL-2.0), NumPy
+(BSD-3-Clause), regex and the MiniMind2 model (Apache-2.0). See
 [NOTICE](NOTICE) for the full list, upstream sources and how to obtain the
 Corresponding Source. The image is not relicensed as a whole.

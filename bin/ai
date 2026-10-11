@@ -1,0 +1,12 @@
+#!/bin/sh
+# mnOS AI assistant launcher
+# Copyright (C) 2026 gtl-m
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Launches the pure-Python MiniMind2 inference engine in /opt/ai.
+
+AI_HOME=/opt/ai
+export PYTHONPATH="$AI_HOME/lib${PYTHONPATH:+:$PYTHONPATH}"
+export LD_LIBRARY_PATH="$AI_HOME/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+cd "$AI_HOME" || exit 1
+exec /usr/bin/python3 "$AI_HOME/minimind2.py" "$@"

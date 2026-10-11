@@ -40,6 +40,15 @@ relicensed as a single work under the mnOS license above.
   tcc (Tiny C Compiler)  0.9.27        LGPL-2.1             https://bellard.org/tcc/
   GNU make              4.2.1         GPL-3.0-or-later     https://www.gnu.org/software/make/
   Git                   2.25.1        GPL-2.0              https://git-scm.com/
+  NumPy                 1.17.4        BSD-3-Clause         https://numpy.org/
+  regex                 2.5.148       Apache-2.0           https://github.com/mrabarnett/mrab-regex
+  MiniMind2 (model)     small         Apache-2.0           https://github.com/jingyaogong/minimind
+
+The `ai` command and the pure-Python inference engine under `opt/ai/`
+(`minimind2.py`, `gguf_reader.py`) are part of mnOS's own code and are covered
+by the mnOS license above (GPL-3.0-or-later).  The bundled `numpy`/`regex`
+wheels and the `q4-minimind2-small.gguf` model weights are third-party works
+under the licenses listed in the table.
 
 Please refer to the LICENSE / COPYING files shipped inside each component or to
 the upstream projects above for the exact terms that apply to them.

@@ -15,23 +15,26 @@
 - GRUB 菜单与内核 framebuffer 同为 **1280×720（16:9）**
 - 串口 / VGA 双控制台输出，`ls`、`mneofetch` 等命令两边都能正常显示
 - 静态根文件系统打包，启动快（约 3 秒到 shell）
+- 本地 **`ai`** 对话机器人：纯 Python 实现的 MiniMind2（llama）CPU 推理，输入 `ai` 即可聊天
 
 ## 运行
 
 ```bash
 # 图形模式（GRUB 菜单 + VGA 控制台）
-qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.6.iso
+qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.7.iso
 
 # 串口模式（终端里直接交互）
-qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.6.iso -nographic
+qemu-system-x86_64 -enable-kvm -m 512 -cdrom mnOSv1.7.iso -nographic
 ```
+
+> 内置的 `ai` 模型需要更多内存 —— 运行 `ai` 前请用 `-m 1024` 启动 QEMU。
 
 ## 构建
 
 ### 一键构建
 
 ```bash
-./build.sh          # 重新打包 initramfs 并生成 ../mnOSv1.6.iso
+./build.sh          # 重新打包 initramfs 并生成 ../mnOSv1.7.iso
 ```
 
 依赖：`grub-mkrescue`、`cpio`、`gzip`，以及内核源码里的 `gen_init_cpio`
@@ -121,7 +124,7 @@ menuentry "mnOS" {
 }
 EOF
 
-grub-mkrescue -o mnOSv1.6.iso staging/
+grub-mkrescue -o mnOSv1.7.iso staging/
 ```
 
 ## 目录结构
@@ -137,6 +140,7 @@ mnOS/
 │   ├── profile     # 彩色 PS1、快捷命令 alias
 │   └── ...
 ├── boot/           # bzImage + initramfs.cpio.gz
+├── opt/ai/         # MiniMind2 推理引擎 + 模型 + numpy/regex
 ├── assets/         # README 截图
 ├── build.sh        # 一键构建脚本
 ├── lib/, lib64/    # glibc 运行库与动态链接器
@@ -162,5 +166,6 @@ mnOS 自有的代码（`init` 进程、`build.sh`、`etc/` 下的启动脚本以
 mnOS 镜像以**聚合**形式分发：其中捆绑了多个第三方软件，各自适用其原有
 许可，主要包括 Linux 与 BusyBox（GPL-2.0-only）、glibc（LGPL-2.1-or-later）、
 GRUB、nano 与 GNU make（GPL-3.0-or-later）、Vim（Vim License）、
-Python（PSF License）、tcc（LGPL-2.1）以及 Git（GPL-2.0）。完整清单、上游
+Python（PSF License）、tcc（LGPL-2.1）、Git（GPL-2.0）、NumPy（BSD-3-Clause）、
+regex 与 MiniMind2 模型（Apache-2.0）。完整清单、上游
 源码及"对应源码"获取方式见 [NOTICE](NOTICE)。整个镜像不作为一个整体重新授权。
