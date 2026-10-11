@@ -38,6 +38,8 @@ relicensed as a single work under the mnOS license above.
   GNU nano               4.8           GPL-3.0-or-later     https://www.nano-editor.org/
   Python                 3.8.10        PSF License          https://www.python.org/
   tcc (Tiny C Compiler)  0.9.27        LGPL-2.1             https://bellard.org/tcc/
+  GNU make              4.2.1         GPL-3.0-or-later     https://www.gnu.org/software/make/
+  Git                   2.25.1        GPL-2.0              https://git-scm.com/
 
 Please refer to the LICENSE / COPYING files shipped inside each component or to
 the upstream projects above for the exact terms that apply to them.

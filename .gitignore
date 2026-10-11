@@ -1,0 +1,6 @@
+# Build artifacts
+/*.iso
+
+# Runtime mounts / test scratch (not part of the source tree)
+/dev/
+/tmp/

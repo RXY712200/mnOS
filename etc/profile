@@ -1,4 +1,5 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+export TERM="${TERM:-linux}"
 export HOME=/root
 export HISTFILE=/run/ash_history
 export HISTSIZE=200
