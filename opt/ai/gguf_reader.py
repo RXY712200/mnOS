@@ -110,7 +110,7 @@ def load_gguf(path):
 
 if __name__ == "__main__":
     import sys
-    info, tensors = load_gguf(sys.argv[1])
+    info, tensors, _, _ = load_gguf(sys.argv[1])
     print("--- meta ---")
     for k in sorted(info):
         v = info[k]
